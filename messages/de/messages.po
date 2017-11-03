@@ -1,0 +1,39 @@
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Insert row above"
+msgstr "Zeile oberhalb"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Insert row below"
+msgstr "Zeile unterhalb"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Insert column on the left"
+msgstr "Spalte links"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Insert column on the right"
+msgstr "Spalte rechts"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Remove row"
+msgstr "Zeile löschen"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Remove column"
+msgstr "Spalte löschen"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Undo"
+msgstr "Rückgängig"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Redo"
+msgstr "Wiederholen"
