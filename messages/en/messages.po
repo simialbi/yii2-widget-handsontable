@@ -37,3 +37,13 @@ msgstr "Undo"
 msgctxt "simialbi/handsontable/wiget"
 msgid "Redo"
 msgstr "Redo"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Merge cells"
+msgstr "Merge cells"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Unmerge cells"
+msgstr "Unmerge cells"

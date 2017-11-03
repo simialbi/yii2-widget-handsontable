@@ -37,3 +37,13 @@ msgstr "Rückgängig"
 msgctxt "simialbi/handsontable/wiget"
 msgid "Redo"
 msgstr "Wiederholen"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Merge cells"
+msgstr "Zellen verbinden"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Unmerge cells"
+msgstr "Zellverbindung aufheben"

@@ -12,6 +12,7 @@ use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\helpers\Json;
+use yii\web\JsExpression;
 use Yii;
 
 /**
@@ -43,6 +44,12 @@ class Handsontable extends Widget {
 	public $contextMenu;
 
 	/**
+	 * @var boolean|array If set to true, it enables a possibility to merge cells. If set to an array of objects, it merges
+	 * the cells provided in the objects.
+	 */
+	public $mergeCells = false;
+
+	/**
 	 * @var array Translations strings of predefined actions
 	 */
 	private $actionStrings = [
@@ -53,7 +60,9 @@ class Handsontable extends Widget {
 		'remove_row' => 'Remove row',
 		'remove_col' => 'Remove column',
 		'undo'       => 'Undo',
-		'redo'       => 'Redo'
+		'redo'       => 'Redo',
+		'merge'      => 'Merge cells',
+		'unmerge'    => 'Unmerge cells'
 	];
 
 	/**
@@ -62,6 +71,8 @@ class Handsontable extends Widget {
 	public function init() {
 		parent::init();
 
+		$this->registerTranslations();
+		$hsep = 4;
 		if (is_bool($this->contextMenu) && $this->contextMenu === true) {
 			$this->clientOptions['contextMenu'] = [
 				'items' => [
@@ -95,23 +106,49 @@ class Handsontable extends Widget {
 				]
 			];
 		} elseif (is_array($this->contextMenu) && !ArrayHelper::isAssociative($this->contextMenu)) {
-			$this->clientOptions['contextMenu'] = [];
+			$this->clientOptions['contextMenu'] = [
+				'items' => []
+			];
 			$hsep = 1;
 			foreach ($this->contextMenu as $action) {
 				$string = ArrayHelper::getValue($this->actionStrings, $action);
 				if (is_null($string)) {
 					if (preg_match('#^[\-]+$#', $action)) {
-						$this->clientOptions['contextMenu']['hsep'.($hsep++)] = $action;
+						$this->clientOptions['contextMenu']['items']['hsep'.($hsep++)] = $action;
 					} else {
-						$this->clientOptions['contextMenu'][$action] = [];
+						$this->clientOptions['contextMenu']['items'][$action] = [];
 					}
 					continue;
 				}
 
-				$this->clientOptions['contextMenu'][$action] = [
+				$this->clientOptions['contextMenu']['items'][$action] = [
 					'name' => Yii::t('simialbi/handsontable/widget', $string)
 				];
 			}
+		}
+
+		if ($this->mergeCells !== false) {
+			$this->clientOptions['mergeCells'] = $this->mergeCells;
+			$this->clientOptions['contextMenu']['items']['hsep'.$hsep] = '---------';
+			$this->clientOptions['contextMenu']['items']['mergeCells'] = [
+				'name' => new JsExpression('function () {
+					var hot = this,
+						sel = hot.getSelected(),
+						info = hot.mergeCells.mergedCellInfoCollection.getInfo(sel[0], sel[1]);
+					
+					if (info) {
+						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['merge']).'\';
+					} else {
+						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['unmerge']).'\';
+					}
+				}'),
+				'callback' => new JsExpression('function () {
+					var hot = this;
+					hot.mergeCells.mergeOrUnmergeSelection(hot.getSelectedRange());
+					hot.render();
+					Handsontable.hooks.run(hot, \'afterChange\', null, \'edit\');
+				}')
+			];
 		}
 	}
 
