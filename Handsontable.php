@@ -13,7 +13,22 @@ use yii\helpers\Inflector;
 use yii\helpers\Json;
 
 /**
- * Class Handsontable
+ * Handsontable grid widget
+ *
+ * Usage:
+ *
+ * ```php
+ * echo Handsontable::widget([
+ *      'clientOptions' => [
+ *          'data' => [
+ *              ['A1', 'B1', 'C1'],
+ *              ['A2', 'B2', 'C2']
+ *          ],
+ *          'colHeaders' => true,
+ *          'rowHeaders' => true
+ *      ]
+ * ]);
+ * ```
  *
  * @author Simon Karlen <simi.albi@gmail.com>
  * @since 1.0

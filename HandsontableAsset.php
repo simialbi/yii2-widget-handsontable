@@ -36,6 +36,6 @@ class HandsontableAsset extends AssetBundle {
 	 * @var array list of JavaScript files that this bundle contains.
 	 */
 	public $depends = [
-		'simialbi\yii2\MomentAsset'
+		'simialbi\yii2\web\MomentAsset'
 	];
 }
