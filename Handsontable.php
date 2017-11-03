@@ -56,6 +56,9 @@ class Handsontable extends Widget {
 		'redo'       => 'Redo'
 	];
 
+	/**
+	 * @inheritdoc
+	 */
 	public function init() {
 		parent::init();
 
