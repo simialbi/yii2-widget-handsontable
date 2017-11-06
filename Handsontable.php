@@ -145,9 +145,9 @@ class Handsontable extends Widget {
 						info = hot.mergeCells.mergedCellInfoCollection.getInfo(sel[0], sel[1]);
 					
 					if (info) {
-						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['merge']).'\';
-					} else {
 						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['unmerge']).'\';
+					} else {
+						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['merge']).'\';
 					}
 				}'),
 				'callback' => new JsExpression('function () {
