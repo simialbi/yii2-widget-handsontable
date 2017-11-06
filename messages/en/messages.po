@@ -47,3 +47,13 @@ msgstr "Merge cells"
 msgctxt "simialbi/handsontable/wiget"
 msgid "Unmerge cells"
 msgstr "Unmerge cells"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Set heading"
+msgstr "Set heading"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Unset heading"
+msgstr "Unset heading"

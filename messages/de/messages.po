@@ -47,3 +47,13 @@ msgstr "Zellen verbinden"
 msgctxt "simialbi/handsontable/wiget"
 msgid "Unmerge cells"
 msgstr "Zellverbindung aufheben"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Set heading"
+msgstr "Überschrift"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Unset heading"
+msgstr "Überschrift aufheben"
