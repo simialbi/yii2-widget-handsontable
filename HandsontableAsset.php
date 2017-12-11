@@ -9,6 +9,12 @@ namespace simialbi\yii2\handsontable;
 
 use simialbi\yii2\web\AssetBundle;
 
+/**
+ * Class HandsontableAsset
+ *
+ * @author Simon Karlen <simi.albi@gmail.com>
+ * @since 1.0
+ */
 class HandsontableAsset extends AssetBundle {
 	/**
 	 * @var string the directory that contains the source asset files for this asset bundle.

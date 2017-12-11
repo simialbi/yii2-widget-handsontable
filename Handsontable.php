@@ -70,7 +70,8 @@ class Handsontable extends Widget {
 		'unmerge'       => 'Unmerge cells',
 		'style'         => 'Style',
 		'set_heading'   => 'Set heading',
-		'unset_heading' => 'Unset heading'
+		'unset_heading' => 'Unset heading',
+		'background_n'  => 'Background style {n}'
 	];
 
 	/**
@@ -210,6 +211,40 @@ class Handsontable extends Widget {
 					]
 				]
 			];
+			$this->clientOptions['contextMenu']['items']['style']['submenu']['items']['hsep'.$hsep++] = '---------';
+			for ($i = 1; $i <= 3; $i++) {
+				$this->clientOptions['contextMenu']['items']['style']['submenu']['items'][] = [
+					'name'     => Yii::t('simialbi/handsontable/widget', $this->actionStrings['background_n'], ['n' => $i]),
+					'callback' => new JsExpression("function (key, options) {
+								var hot = this,
+									sel = hot.getSelected(),
+									meta = hot.getCellMeta(sel[0], sel[1]),
+									bg = true;
+									
+								if (!meta.style) {
+								} else {
+									bg = !meta.style.bg$i;
+								}
+								
+								for (var i = sel[0]; i <= sel[2]; i++) {
+									for (var k = sel[1]; k <= sel[3]; k++) {
+										meta = hot.getCellMeta(sel[0], sel[1]);
+										if (!meta.style) {
+											meta.style = {bg$i: bg};
+										} else {
+											meta.style.bg$i = bg;
+										}
+										hot.setCellMeta(i, k, 'style', meta.style);
+									}
+								}
+								
+								hot.render();
+								
+								return true;
+							}"),
+					'key'      => 'style:bg'.$i
+				];
+			}
 		}
 	}
 

@@ -57,3 +57,8 @@ msgstr "Set heading"
 msgctxt "simialbi/handsontable/wiget"
 msgid "Unset heading"
 msgstr "Unset heading"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Background style {n}"
+msgstr "Background style {n}"

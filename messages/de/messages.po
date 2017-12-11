@@ -57,3 +57,8 @@ msgstr "Überschrift"
 msgctxt "simialbi/handsontable/wiget"
 msgid "Unset heading"
 msgstr "Überschrift aufheben"
+
+#: Handsontable.php
+msgctxt "simialbi/handsontable/wiget"
+msgid "Background style {n}"
+msgstr "Hintergrund {n}"
