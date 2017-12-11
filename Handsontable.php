@@ -71,6 +71,7 @@ class Handsontable extends Widget {
 		'style'         => 'Style',
 		'set_heading'   => 'Set heading',
 		'unset_heading' => 'Unset heading',
+		'no_background' => 'No background',
 		'background_n'  => 'Background style {n}'
 	];
 
@@ -207,32 +208,54 @@ class Handsontable extends Widget {
 								return true;
 							}'),
 							'key'      => 'style:heading'
+						],
+						[
+							'name' => '---------',
+							'key'  => 'hsep'.$hsep++
+						],
+						[
+							'name'     => Yii::t('simialbi/handsontable/widget', $this->actionStrings['no_background']),
+							'callback' => new JsExpression("function (key, options) {
+								var hot = this,
+									sel = hot.getSelected(),
+									meta = hot.getCellMeta(sel[0], sel[1]);
+								
+								for (var i = sel[0]; i <= sel[2]; i++) {
+									for (var k = sel[1]; k <= sel[3]; k++) {
+										meta = hot.getCellMeta(sel[0], sel[1]);
+										if (!meta.style) {
+											continue;
+										} else if (meta.style.bg) {
+											delete meta.style.bg;
+										}
+										hot.setCellMeta(i, k, 'style', meta.style);
+									}
+								}
+								
+								hot.render();
+								
+								return true;
+							}"),
+							'key'      => 'style:nobg'
 						]
 					]
 				]
 			];
-			$this->clientOptions['contextMenu']['items']['style']['submenu']['items']['hsep'.$hsep++] = '---------';
 			for ($i = 1; $i <= 3; $i++) {
 				$this->clientOptions['contextMenu']['items']['style']['submenu']['items'][] = [
 					'name'     => Yii::t('simialbi/handsontable/widget', $this->actionStrings['background_n'], ['n' => $i]),
 					'callback' => new JsExpression("function (key, options) {
 								var hot = this,
 									sel = hot.getSelected(),
-									meta = hot.getCellMeta(sel[0], sel[1]),
-									bg = true;
-									
-								if (!meta.style) {
-								} else {
-									bg = !meta.style.bg$i;
-								}
+									meta = hot.getCellMeta(sel[0], sel[1]);
 								
 								for (var i = sel[0]; i <= sel[2]; i++) {
 									for (var k = sel[1]; k <= sel[3]; k++) {
 										meta = hot.getCellMeta(sel[0], sel[1]);
 										if (!meta.style) {
-											meta.style = {bg$i: bg};
+											meta.style = {bg: 'bg$i'};
 										} else {
-											meta.style.bg$i = bg;
+											meta.style.bg = 'bg$i';
 										}
 										hot.setCellMeta(i, k, 'style', meta.style);
 									}
@@ -282,6 +305,15 @@ class Handsontable extends Widget {
 			
 			if (meta.style.heading) {
 				td.style.fontWeight = 'bold';
+			}
+			if (meta.style.bg) {
+				if (meta.style.bg === 'bg1') {
+					td.style.backgroundColor = '#fcf8e3';
+				} else if (meta.style.bg === 'bg2') {
+					td.style.backgroundColor = '#faf2cc';
+				} else if (meta.style.bg === 'bg3') {
+					td.style.backgroundColor = '#f7ecb5';
+				}
 			}
 			
 			return td;
