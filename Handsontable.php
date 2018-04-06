@@ -174,7 +174,7 @@ class Handsontable extends Widget {
 						[
 							'name'     => new JsExpression('function () {
 								var hot = this,
-									sel = hot.getSelected(),
+									sel = hot.getSelectedLast(),
 									meta = hot.getCellMeta(sel[0], sel[1]);
 								
 								if (!meta.style || !meta.style.heading) {
@@ -185,7 +185,7 @@ class Handsontable extends Widget {
 							}'),
 							'callback' => new JsExpression('function (key, options) {
 								var hot = this,
-									sel = hot.getSelected(),
+									sel = hot.getSelectedLast(),
 									meta = hot.getCellMeta(sel[0], sel[1]),
 									heading = true;
 									
@@ -220,7 +220,7 @@ class Handsontable extends Widget {
 							'name'     => Yii::t('simialbi/handsontable/widget', $this->actionStrings['no_background']),
 							'callback' => new JsExpression("function (key, options) {
 								var hot = this,
-									sel = hot.getSelected(),
+									sel = hot.getSelectedLast(),
 									meta = hot.getCellMeta(sel[0], sel[1]);
 								
 								for (var i = sel[0]; i <= sel[2]; i++) {
@@ -249,7 +249,7 @@ class Handsontable extends Widget {
 					'name'     => Yii::t('simialbi/handsontable/widget', $this->actionStrings['background_n'], ['n' => $i]),
 					'callback' => new JsExpression("function (key, options) {
 								var hot = this,
-									sel = hot.getSelected(),
+									sel = hot.getSelectedLast(),
 									meta = hot.getCellMeta(sel[0], sel[1]);
 								
 								for (var i = sel[0]; i <= sel[2]; i++) {
