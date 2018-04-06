@@ -33,7 +33,7 @@
 		"yiisoft/yii2": "~2.0",
 		"yiisoft/yii2-bootstrap": "~2.0",
 		"simialbi/yii2-simialbi-base": "*",
-		"npm-asset/handsontable": ">=0.35"
+		"npm-asset/handsontable": "^0.37"
 	},
 	"config": {
 		"process-timeout": 1800,

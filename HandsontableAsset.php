@@ -44,4 +44,18 @@ class HandsontableAsset extends AssetBundle {
 	public $depends = [
 		'simialbi\yii2\web\MomentAsset'
 	];
+
+	/**
+	 * @var array the options to be passed to [[AssetManager::publish()]] when the asset bundle
+	 * is being published.
+	 */
+	public $publishOptions = [
+		'only' => [
+			'numbro/languages.js',
+			'numbro/numbro.js',
+			'pikaday/*',
+			'handsontable.min.css',
+			'handsontable.min.js'
+		]
+	];
 }

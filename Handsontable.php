@@ -44,8 +44,8 @@ class Handsontable extends Widget {
 	public $contextMenu;
 
 	/**
-	 * @var boolean|array If set to true, it enables a possibility to merge cells. If set to an array of objects, it merges
-	 * the cells provided in the objects.
+	 * @var boolean|array If set to true, it enables a possibility to merge cells. If set to an array of objects, it
+	 *     merges the cells provided in the objects.
 	 */
 	public $mergeCells = false;
 
@@ -124,7 +124,7 @@ class Handsontable extends Widget {
 				$string = ArrayHelper::getValue($this->actionStrings, $action);
 				if (is_null($string)) {
 					if (preg_match('#^[\-]+$#', $action)) {
-						$this->clientOptions['contextMenu']['items']['hsep'.($hsep++)] = $action;
+						$this->clientOptions['contextMenu']['items']['hsep' . ($hsep++)] = $action;
 					} else {
 						$this->clientOptions['contextMenu']['items'][$action] = [];
 					}
@@ -138,32 +138,35 @@ class Handsontable extends Widget {
 		}
 
 		if ($this->mergeCells !== false) {
-			$this->clientOptions['mergeCells']                         = $this->mergeCells;
-			$this->clientOptions['contextMenu']['items']['hsep'.$hsep] = '---------';
-			$this->clientOptions['contextMenu']['items']['mergeCells'] = [
+			$this->clientOptions['mergeCells']                           = $this->mergeCells;
+			$this->clientOptions['contextMenu']['items']['hsep' . $hsep] = '---------';
+			$this->clientOptions['contextMenu']['items']['mergeCells']   = [
 				'name'     => new JsExpression('function () {
 					var hot = this,
-						sel = hot.getSelected(),
-						info = hot.mergeCells.mergedCellInfoCollection.getInfo(sel[0], sel[1]);
+						sel = hot.getSelectedLast();
+					if (sel) {
+						var info = hot.getPlugin(\'mergeCells\').mergedCellsCollection.get(sel[0], sel[1]);
+					}
 					
-					if (info) {
-						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['unmerge']).'\';
+					if (info && info.row === sel[0] && info.col === sel[1] && info.row + info.rowspan -1 === sel[2] && info.col + info.colspan -1 === sel[3]) {
+						return \'' . Yii::t('simialbi/handsontable/widget', $this->actionStrings['unmerge']) . '\';
 					} else {
-						return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['merge']).'\';
+						return \'' . Yii::t('simialbi/handsontable/widget', $this->actionStrings['merge']) . '\';
 					}
 				}'),
 				'callback' => new JsExpression('function () {
 					var hot = this;
-					hot.mergeCells.mergeOrUnmergeSelection(hot.getSelectedRange());
+					
+					hot.getPlugin(\'mergeCells\').toggleMergeOnSelection();
 					hot.render();
 					Handsontable.hooks.run(hot, \'afterChange\', null, \'edit\');
 				}')
 			];
 		}
 		if ($this->styling) {
-			$this->clientOptions['renderer']                             = 'styleRenderer';
-			$this->clientOptions['contextMenu']['items']['hsep'.$hsep++] = '---------';
-			$this->clientOptions['contextMenu']['items']['style']        = [
+			$this->clientOptions['renderer']                               = 'styleRenderer';
+			$this->clientOptions['contextMenu']['items']['hsep' . $hsep++] = '---------';
+			$this->clientOptions['contextMenu']['items']['style']          = [
 				'name'    => Yii::t('simialbi/handsontable/widget', $this->actionStrings['style']),
 				'submenu' => [
 					'callback' => new JsExpression('function (key, options) {}'),
@@ -175,10 +178,10 @@ class Handsontable extends Widget {
 									meta = hot.getCellMeta(sel[0], sel[1]);
 								
 								if (!meta.style || !meta.style.heading) {
-									return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['set_heading']).'\';
+									return \'' . Yii::t('simialbi/handsontable/widget', $this->actionStrings['set_heading']) . '\';
 								}
 								
-								return \''.Yii::t('simialbi/handsontable/widget', $this->actionStrings['unset_heading']).'\';
+								return \'' . Yii::t('simialbi/handsontable/widget', $this->actionStrings['unset_heading']) . '\';
 							}'),
 							'callback' => new JsExpression('function (key, options) {
 								var hot = this,
@@ -211,7 +214,7 @@ class Handsontable extends Widget {
 						],
 						[
 							'name' => '---------',
-							'key'  => 'hsep'.$hsep++
+							'key'  => 'hsep' . $hsep++
 						],
 						[
 							'name'     => Yii::t('simialbi/handsontable/widget', $this->actionStrings['no_background']),
@@ -265,7 +268,7 @@ class Handsontable extends Widget {
 								
 								return true;
 							}"),
-					'key'      => 'style:bg'.$i
+					'key'      => 'style:bg' . $i
 				];
 			}
 		}
