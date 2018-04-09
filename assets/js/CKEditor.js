@@ -5,17 +5,17 @@
 	var CKEditor = Handsontable.editors.TextEditor.prototype.extend();
 
 	CKEditor.prototype.getValue = function () {
-		return $(this.textarea).val();
+		return $(this.TEXTAREA).val();
 	};
 
 	CKEditor.prototype.setValue = function (newValue) {
-		$(this.textarea).val(newValue);
+		$(this.TEXTAREA).val(newValue);
 	};
 
 	CKEditor.prototype.open = function () {
 		this.refreshDimensions();
 
-		$(this.textarea).ckeditor({
+		$(this.TEXTAREA).ckeditor({
 			toolbarGroups: [
 				{
 					name: 'clipboard',
@@ -34,7 +34,13 @@
 	};
 
 	CKEditor.prototype.close = function () {
-		this.textarea.ckeditor().editor.destroy();
+		$(this.TEXTAREA).ckeditor().editor.destroy();
+
+		var value = this.getValue(),
+			stripped = value.replace(/(<([^>]+)>)/ig, '');
+		if (value === '<p>' + stripped + '</p>') {
+			this.setValue(stripped);
+		}
 
 		this.textareaParentStyle.display = 'none';
 

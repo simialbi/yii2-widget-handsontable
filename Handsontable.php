@@ -310,7 +310,7 @@ class Handsontable extends Widget {
 		$view->registerJs("$pluginName.renderers.registerRenderer('styleRenderer', function (hot, td, row, col, prop, value, cellProperties) {
 			td.style = {};
 			
-			$pluginName.renderers.TextRenderer.apply(this, arguments);
+			$pluginName.renderers.HtmlRenderer.apply(this, arguments);
 			
 			var meta = hot.getCellMeta(row, col);
 			if (!meta.style) {
