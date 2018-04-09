@@ -1,0 +1,8 @@
+{
+"version":3,
+"file":"",
+"lineCount":2,
+"mappings":"AACC,SAAS,CAACA,CAAD,CAAeC,CAAf,CAAkB,CAG3B,IAAIC,EAAWF,CAAAG,QAAAC,WAAAC,UAAAC,OAAA,EAEfJ,EAAAG,UAAAE,SAAA,CAA8BC,QAAS,EAAG,CACzC,MAAOP,EAAA,CAAE,IAAAQ,SAAF,CAAAC,IAAA,EADkC,CAI1CR,EAAAG,UAAAM,SAAA,CAA8BC,QAAS,CAACC,CAAD,CAAW,CACjDZ,CAAA,CAAE,IAAAQ,SAAF,CAAAC,IAAA,CAAqBG,CAArB,CADiD,CAIlDX,EAAAG,UAAAS,KAAA,CAA0BC,QAAS,EAAG,CACrC,IAAAC,kBAAA,EAEAf,EAAA,CAAE,IAAAQ,SAAF,CAAAQ,SAAA,CAA0B,CACzBC,cAAe,CACd,CACCC,KAAM,WADP,CAECC,OAAQ,CAAC,MAAD,CAAS,WAAT,CAAsB,WAAtB,CAAmC,UAAnC,CAFT,CADc,CAKd,CACCD,KAAM,aADP,CAECC,OAAQ,CAAC,aAAD,CAAgB,SAAhB,CAFT,CALc,CASd,CACCD,KAAM,OADP,CATc,CADU,CAczBE,cAAe,oBAdU,CAA1B,CAHqC,CAqBtCnB,EAAAG,UAAAiB,MAAA,CAA2BC,QAAS,EAAG,CACtC,IAAAd,SAAAQ,SAAA,EAAAO,OAAAC,QAAA,EAEA;IAAAC,oBAAAC,QAAA,CAAmC,MAEnC,KAAAC,WAAAC,UAAA,EAEIC,SAAAC,cAAJ,GAA+B,IAAAC,SAA/B,EACC,IAAAC,SAAAC,OAAA,EARqC,CAYvClC,EAAAG,QAAAgC,eAAA,CAAoC,WAApC,CAAiDjC,CAAjD,CA9C2B,CAA3B,CAAD,CA+CGF,YA/CH,CA+CiBoC,MA/CjB;",
+"sources":["CKEditor.js"],
+"names":["Handsontable","$","CKEditor","editors","TextEditor","prototype","extend","getValue","CKEditor.prototype.getValue","textarea","val","setValue","CKEditor.prototype.setValue","newValue","open","CKEditor.prototype.open","refreshDimensions","ckeditor","toolbarGroups","name","groups","removeButtons","close","CKEditor.prototype.close","editor","destroy","textareaParentStyle","display","autoResize","unObserve","document","activeElement","TEXTAREA","instance","listen","registerEditor","jQuery"]
+}

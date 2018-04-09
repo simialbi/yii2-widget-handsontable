@@ -55,6 +55,11 @@ class Handsontable extends Widget {
 	public $styling = false;
 
 	/**
+	 * @var boolean Add rich text editor (CK Editor) as cell text editor. Default to false
+	 */
+	public $rtfEditor = false;
+
+	/**
 	 * @var array Translations strings of predefined actions
 	 */
 	private $actionStrings = [
@@ -272,6 +277,9 @@ class Handsontable extends Widget {
 				];
 			}
 		}
+		if ($this->rtfEditor) {
+			$this->clientOptions['editor'] = 'rtfEditor';
+		}
 	}
 
 	/**
@@ -292,9 +300,12 @@ class Handsontable extends Widget {
 		$id      = $this->options['id'];
 		$jsId    = Inflector::slug($id, '_', true);
 		$view    = $this->view;
-		$options = Json::encode($this->clientOptions);
+		$options = $this->clientOptions;
 
 		HandsontableAsset::register($view);
+		if ($this->rtfEditor) {
+			HandsontableRtfEditorAsset::register($view);
+		}
 
 		$view->registerJs("$pluginName.renderers.registerRenderer('styleRenderer', function (hot, td, row, col, prop, value, cellProperties) {
 			td.style = {};
@@ -321,7 +332,7 @@ class Handsontable extends Widget {
 			
 			return td;
 		});");
-		$view->registerJs("\nvar hot$jsId = new $pluginName(jQuery('#$id').get(0), $options)");
+		$view->registerJs("\nvar hot$jsId = new $pluginName(jQuery('#$id').get(0), " . Json::encode($options) . ")");
 		$this->registerClientEvents();
 		$view->registerJs("\nhot$jsId.runHooks('afterInit');");
 	}

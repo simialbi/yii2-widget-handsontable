@@ -33,7 +33,8 @@
 		"yiisoft/yii2": "~2.0",
 		"yiisoft/yii2-bootstrap": "~2.0",
 		"simialbi/yii2-simialbi-base": "*",
-		"npm-asset/handsontable": "^0.37"
+		"npm-asset/handsontable": "^0.37",
+		"2amigos/yii2-ckeditor-widget": "~2.0"
 	},
 	"config": {
 		"process-timeout": 1800,
