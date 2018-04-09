@@ -47,6 +47,15 @@
 		});
 	};
 
+	CKEditor.prototype.finishEditing = function (restoreOriginalValue, ctrlDown, callback) {
+		var dialog = $('.cke_dialog');
+		if (dialog.length && dialog.is(':visible')) {
+			return;
+		}
+
+		Handsontable.editors.TextEditor.prototype.finishEditing.call(this, restoreOriginalValue, ctrlDown, callback);
+	};
+
 	CKEditor.prototype.close = function () {
 		$(this.TEXTAREA).ckeditor().editor.destroy();
 
