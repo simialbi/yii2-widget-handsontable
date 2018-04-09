@@ -1,5 +1,5 @@
-/* globals Handsontable,jQuery,window:false */
-(function (Handsontable, $) {
+/* globals Handsontable,jQuery,CKEDITOR,window:false */
+(function (Handsontable, $, CK) {
 	"use strict";
 
 	var CKEditor = Handsontable.editors.TextEditor.prototype.extend();
@@ -29,14 +29,28 @@
 					name: 'links'
 				}
 			],
-			removeButtons: 'Iframe,Image,Table'
+			removeButtons: 'Iframe,Image,Table',
+			enterMode: CK.ENTER_BR,
+			shiftEnterMode: CK.ENTER_P,
+			on: {
+				instanceReady: function () {
+					this.dataProcessor.writer.selfClosingEnd = '>';
+					this.dataProcessor.writer.setRules('br', {
+						indent: false,
+						breakBeforeOpen: false,
+						breakAfterOpen: false,
+						breakBeforeClose: false,
+						breakAfterClose: false
+					});
+				}
+			}
 		});
 	};
 
 	CKEditor.prototype.close = function () {
 		$(this.TEXTAREA).ckeditor().editor.destroy();
 
-		var value = this.getValue(),
+		var value = this.getValue().trim(),
 			stripped = value.replace(/(<([^>]+)>)/ig, '');
 		if (value === '<p>' + stripped + '</p>') {
 			this.setValue(stripped);
@@ -52,4 +66,4 @@
 	};
 
 	Handsontable.editors.registerEditor('rtfEditor', CKEditor);
-})(Handsontable, jQuery);
+})(Handsontable, jQuery, CKEDITOR);
