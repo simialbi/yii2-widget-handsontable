@@ -8,12 +8,12 @@
 namespace simialbi\yii2\handsontable;
 
 use simialbi\yii2\widgets\Widget;
+use Yii;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\helpers\Json;
 use yii\web\JsExpression;
-use Yii;
 
 /**
  * Handsontable grid widget
@@ -42,23 +42,19 @@ class Handsontable extends Widget {
 	 * create new row or column at any place in the grid among other features.
 	 */
 	public $contextMenu;
-
 	/**
 	 * @var boolean|array If set to true, it enables a possibility to merge cells. If set to an array of objects, it
 	 *     merges the cells provided in the objects.
 	 */
 	public $mergeCells = false;
-
 	/**
 	 * @var boolean Show styling options in context menu like "title row" etc.
 	 */
 	public $styling = false;
-
 	/**
 	 * @var boolean Add rich text editor (CK Editor) as cell text editor. Default to false
 	 */
 	public $rtfEditor = false;
-
 	/**
 	 * @var array Translations strings of predefined actions
 	 */
@@ -145,28 +141,7 @@ class Handsontable extends Widget {
 		if ($this->mergeCells !== false) {
 			$this->clientOptions['mergeCells']                           = $this->mergeCells;
 			$this->clientOptions['contextMenu']['items']['hsep' . $hsep] = '---------';
-			$this->clientOptions['contextMenu']['items']['mergeCells']   = [
-				'name'     => new JsExpression('function () {
-					var hot = this,
-						sel = hot.getSelectedLast();
-					if (sel) {
-						var info = hot.getPlugin(\'mergeCells\').mergedCellsCollection.get(sel[0], sel[1]);
-					}
-					
-					if (info && info.row === sel[0] && info.col === sel[1] && info.row + info.rowspan -1 === sel[2] && info.col + info.colspan -1 === sel[3]) {
-						return \'' . Yii::t('simialbi/handsontable/widget', $this->actionStrings['unmerge']) . '\';
-					} else {
-						return \'' . Yii::t('simialbi/handsontable/widget', $this->actionStrings['merge']) . '\';
-					}
-				}'),
-				'callback' => new JsExpression('function () {
-					var hot = this;
-					
-					hot.getPlugin(\'mergeCells\').toggleMergeOnSelection();
-					hot.render();
-					Handsontable.hooks.run(hot, \'afterChange\', null, \'edit\');
-				}')
-			];
+			$this->clientOptions['contextMenu']['items']['mergeCells']   = 'mergeCells';
 		}
 		if ($this->styling) {
 			$this->clientOptions['renderer']                               = 'styleRenderer';

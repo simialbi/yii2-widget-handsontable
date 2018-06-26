@@ -19,7 +19,7 @@ class HandsontableAsset extends AssetBundle {
 	/**
 	 * @var string the directory that contains the source asset files for this asset bundle.
 	 */
-	public $sourcePath = '@npm/handsontable/dist';
+	public $sourcePath = '@bower/handsontable/dist';
 
 	/**
 	 * @var array list of CSS files that this bundle contains
@@ -33,6 +33,7 @@ class HandsontableAsset extends AssetBundle {
 	 * @var array list of JavaScript files that this bundle contains.
 	 */
 	public $js = [
+		'numbro/languages.min.js',
 		'numbro/numbro.js',
 		'pikaday/pikaday.js',
 		'handsontable.min.js'
@@ -51,7 +52,7 @@ class HandsontableAsset extends AssetBundle {
 	 */
 	public $publishOptions = [
 		'only' => [
-			'numbro/languages.js',
+			'numbro/languages.min.js',
 			'numbro/numbro.js',
 			'pikaday/*',
 			'handsontable.min.css',
