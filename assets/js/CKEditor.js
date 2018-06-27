@@ -4,16 +4,23 @@
 
 	var CKEditor = Handsontable.editors.TextEditor.prototype.extend();
 
-	CKEditor.prototype.getValue = function () {
-		return $(this.TEXTAREA).val();
-	};
+	CKEditor.prototype.createElements = function () {
+		this.TEXTAREA = document.createElement('TEXTAREA');
+		this.TEXTAREA.tabIndex = -1;
 
-	CKEditor.prototype.setValue = function (newValue) {
-		$(this.TEXTAREA).val(newValue);
-	};
+		this.textareaStyle = this.TEXTAREA.style;
+		this.textareaStyle.width = 0;
+		this.textareaStyle.height = 0;
 
-	CKEditor.prototype.open = function () {
-		this.refreshDimensions();
+		this.TEXTAREA_PARENT = document.createElement('DIV');
+		$(this.TEXTAREA_PARENT).addClass('handsontableInputHolder');
+
+		this.textareaParentStyle = this.TEXTAREA_PARENT.style;
+		this.textareaParentStyle.zIndex = '-1';
+
+		this.TEXTAREA_PARENT.appendChild(this.TEXTAREA);
+
+		this.instance.rootElement.appendChild(this.TEXTAREA_PARENT);
 
 		$(this.TEXTAREA).ckeditor({
 			toolbarGroups: [
@@ -47,6 +54,12 @@
 		});
 	};
 
+	CKEditor.prototype.open = function () {
+		$(this.TEXTAREA).ckeditor().editor.setData('<p>' + this.getValue() + '</p>');
+
+		Handsontable.editors.TextEditor.prototype.open.call(this);
+	};
+
 	CKEditor.prototype.finishEditing = function (restoreOriginalValue, ctrlDown, callback) {
 		var dialog = $('.cke_dialog');
 		if (dialog.length && dialog.is(':visible')) {
@@ -56,22 +69,14 @@
 		Handsontable.editors.TextEditor.prototype.finishEditing.call(this, restoreOriginalValue, ctrlDown, callback);
 	};
 
-	CKEditor.prototype.close = function () {
-		$(this.TEXTAREA).ckeditor().editor.destroy();
-
+	CKEditor.prototype.close = function (tdOutside) {
 		var value = this.getValue().trim(),
 			stripped = value.replace(/(<([^>]+)>)/ig, '');
 		if (value === '<p>' + stripped + '</p>') {
 			this.setValue(stripped);
 		}
 
-		this.textareaParentStyle.display = 'none';
-
-		this.autoResize.unObserve();
-
-		if (document.activeElement === this.TEXTAREA) {
-			this.instance.listen(); // don't refocus the table if user focused some cell outside of HT on purpose
-		}
+		Handsontable.editors.TextEditor.prototype.close.call(this, tdOutside);
 	};
 
 	Handsontable.editors.registerEditor('rtfEditor', CKEditor);
