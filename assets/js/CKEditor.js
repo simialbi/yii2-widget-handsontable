@@ -54,29 +54,17 @@
 		});
 	};
 
-	CKEditor.prototype.open = function () {
-		$(this.TEXTAREA).ckeditor().editor.setData('<p>' + this.getValue() + '</p>');
+	CKEditor.prototype.setValue = function (newValue) {
+		if (!newValue.match(/^<[^>]+>/ig)) {
+			newValue = '<p>' + newValue + '</p>';
+		}
+		$(this.TEXTAREA).ckeditor().editor.setData(newValue);
 
-		Handsontable.editors.TextEditor.prototype.open.call(this);
+		Handsontable.editors.TextEditor.prototype.setValue.call(this, newValue);
 	};
 
-	CKEditor.prototype.finishEditing = function (restoreOriginalValue, ctrlDown, callback) {
-		var dialog = $('.cke_dialog');
-		if (dialog.length && dialog.is(':visible')) {
-			return;
-		}
-
-		Handsontable.editors.TextEditor.prototype.finishEditing.call(this, restoreOriginalValue, ctrlDown, callback);
-	};
-
-	CKEditor.prototype.close = function (tdOutside) {
-		var value = this.getValue().trim(),
-			stripped = value.replace(/(<([^>]+)>)/ig, '');
-		if (value === '<p>' + stripped + '</p>') {
-			this.setValue(stripped);
-		}
-
-		Handsontable.editors.TextEditor.prototype.close.call(this, tdOutside);
+	CKEditor.prototype.getValue = function () {
+		return $(this.TEXTAREA).ckeditor().editor.getData().trim();
 	};
 
 	Handsontable.editors.registerEditor('rtfEditor', CKEditor);
