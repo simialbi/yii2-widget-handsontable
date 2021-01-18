@@ -1,58 +1,58 @@
 {
-  "name": "simialbi/yii2-widget-handsontable",
-  "description": "yii2 handsontable widget",
-  "keywords": [
-    "yii2",
-    "yii2-widgets",
-    "handsontable",
-    "table",
-    "spreadsheet",
-    "excel",
-    "grid"
-  ],
-  "type": "yii2-extension",
-  "license": "MIT",
-  "support": {
-    "issues": "https://github.com/simialbi/yii2-widget-handsontable/issues",
-    "source": "https://github.com/simialbi/yii2-widget-handsontable"
-  },
-  "authors": [
-    {
-      "name": "Simon Karlen",
-      "email": "simi.albi@gmail.com"
+    "name": "simialbi/yii2-widget-handsontable",
+    "description": "yii2 handsontable widget",
+    "keywords": [
+        "yii2",
+        "yii2-widgets",
+        "handsontable",
+        "table",
+        "spreadsheet",
+        "excel",
+        "grid"
+    ],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/simialbi/yii2-widget-handsontable/issues",
+        "source": "https://github.com/simialbi/yii2-widget-handsontable"
+    },
+    "authors": [
+        {
+            "name": "Simon Karlen",
+            "email": "simi.albi@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0",
+        "yiisoft/yii2-bootstrap": "~2.0",
+        "simialbi/yii2-simialbi-base": ">=0.10.2 <1.0 | ^1.0.0",
+        "bower-asset/handsontable": "~4.0"
+    },
+    "require-dev": {
+        "2amigos/yii2-ckeditor-widget": "~2.0",
+        "froala/yii2-froala-editor": "~2.8",
+        "yiisoft/yii2-coding-standards": "~2.0"
+    },
+    "suggest": {
+        "2amigos/yii2-ckeditor-widget": "To use handsontable with ckeditor rich text editor",
+        "froala/yii2-froala-editor": "To use handsontable with froala editor (recommended)"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enable": false
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "simialbi\\yii2\\handsontable\\": ""
+        }
     }
-  ],
-  "minimum-stability": "stable",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    }
-  ],
-  "require": {
-    "yiisoft/yii2": "~2.0",
-    "yiisoft/yii2-bootstrap": "~2.0",
-    "simialbi/yii2-simialbi-base": "*",
-    "bower-asset/handsontable": "~4.0"
-  },
-  "require-dev": {
-    "2amigos/yii2-ckeditor-widget": "~2.0",
-    "froala/yii2-froala-editor": "~2.8",
-    "yiisoft/yii2-coding-standards": "~2.0"
-  },
-  "suggest": {
-    "2amigos/yii2-ckeditor-widget": "To use handsontable with ckeditor rich text editor",
-    "froala/yii2-froala-editor": "To use handsontable with froala editor (recommended)"
-  },
-  "config": {
-    "process-timeout": 1800,
-    "fxp-asset": {
-      "enable": false
-    }
-  },
-  "autoload": {
-    "psr-4": {
-      "simialbi\\yii2\\handsontable\\": ""
-    }
-  }
 }

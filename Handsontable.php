@@ -88,7 +88,7 @@ class Handsontable extends Widget
     ];
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      * @throws \ReflectionException
      */
     public function init()
@@ -273,7 +273,7 @@ class Handsontable extends Widget
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function run()
     {
@@ -285,14 +285,18 @@ class Handsontable extends Widget
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    protected function registerPlugin($pluginName = 'Handsontable')
+    protected function registerPlugin($pluginName = 'Handsontable', $selector = null)
     {
         $id = $this->options['id'];
         $jsId = Inflector::slug($id, '_', true);
         $view = $this->view;
         $options = $this->clientOptions;
+
+        if (empty($selector)) {
+            $selector = '#' . $id;
+        }
 
         HandsontableAsset::register($view);
         if ($this->rtfEditor === self::RTFEDITOR_CK) {
@@ -328,15 +332,15 @@ class Handsontable extends Widget
 			
 			return td;
 		});");
-        $view->registerJs("\nvar hot$jsId = new $pluginName(jQuery('#$id').get(0), " . Json::encode($options) . ")");
+        $view->registerJs("\nvar hot$jsId = new $pluginName(jQuery('$selector').get(0), " . Json::encode($options) . ")");
         $this->registerClientEvents();
         $view->registerJs("\nhot$jsId.runHooks('afterInit');");
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    protected function registerClientEvents()
+    protected function registerClientEvents($selector = null)
     {
         if (!empty($this->clientEvents)) {
             $id = $this->options['id'];
